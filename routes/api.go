@@ -8,4 +8,5 @@ import (
 
 func Api() {
 	facades.Route().Resource("/players", controllers.NewPlayerController())
+	facades.Route().Resource("/events", controllers.NewEventController())
 }
