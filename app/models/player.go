@@ -6,6 +6,7 @@ import (
 
 type Player struct {
 	orm.Model
-	Name  string `form:"name"`
-	Email string `form:"email"`
+	Name   string   `form:"name"`
+	Email  string   `form:"email"`
+	Events []*Event `gorm:"many2many:player_events"`
 }

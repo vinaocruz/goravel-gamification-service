@@ -29,7 +29,7 @@ func (r *PlayerController) Show(ctx http.Context) http.Response {
 	id := ctx.Request().RouteInt("id")
 
 	var player models.Player
-	err := facades.Orm().Query().FindOrFail(&player, id)
+	err := facades.Orm().Query().With("Events").FindOrFail(&player, id)
 
 	if err == orm.ErrRecordNotFound {
 		return ctx.Response().Json(http.StatusNotFound, http.Json{
