@@ -12,6 +12,12 @@ type ScoreController struct {
 	//Dependent services
 }
 
+type Score struct {
+	PlayerId uint
+	Player   string
+	Score    int
+}
+
 func NewScoreController() *ScoreController {
 	return &ScoreController{
 		//Inject services
@@ -45,4 +51,12 @@ func (r *ScoreController) Create(ctx http.Context) http.Response {
 	facades.Orm().Query().Create(&score)
 
 	return ctx.Response().Json(http.StatusCreated, score)
+}
+
+func (r *ScoreController) Show(ctx http.Context) http.Response {
+	var sql = "SELECT player_id, players.name as player, sum(points) as score FROM player_events JOIN players ON player_events.player_id = players.id GROUP BY player_id, players.name ORDER BY score DESC LIMIT 10"
+	var scores []Score
+	facades.Orm().Query().Raw(sql).Get(&scores)
+
+	return ctx.Response().Success().Json(scores)
 }
