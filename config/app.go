@@ -1,8 +1,6 @@
 package config
 
 import (
-	"goravel/app/providers"
-
 	"github.com/goravel/framework/auth"
 	"github.com/goravel/framework/cache"
 	"github.com/goravel/framework/console"
@@ -26,6 +24,10 @@ import (
 	"github.com/goravel/framework/translation"
 	"github.com/goravel/framework/validation"
 	"github.com/goravel/gin"
+
+	"github.com/goravel/redis"
+
+	"goravel/app/providers"
 )
 
 // Boot Start all init methods of the current folder to bootstrap all config.
@@ -73,6 +75,7 @@ func init() {
 			&log.ServiceProvider{},
 			&console.ServiceProvider{},
 			&database.ServiceProvider{},
+			&redis.ServiceProvider{},
 			&cache.ServiceProvider{},
 			&http.ServiceProvider{},
 			&route.ServiceProvider{},
